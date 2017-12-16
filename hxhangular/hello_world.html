@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hello World</title>
+</head>
+<body ng-app>
+
+	<input type="text" ng-model="name" placeholder="Enter your name">
+	<h1>Hello <span ng-bind="name"></span></h1>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script>
+	var a = 10;
+		function xes(x){
+			console.log(a);
+			return x*x;
+		}
+		function second(){
+			a = 5;
+			console.log(a);
+		}
+		function another(){
+			var a = 8;
+			console.log(a);
+		}
+		second();
+		another();
+		console.log(xes([1,2,3]));
+		console.log('hello','yeah');
+		console.log(1);
+		setTimeout(function(){console.log(2);}, 1000);
+		setTimeout(function(){console.log(3);}, 2000);
+		setTimeout(function(){console.log(4);}, 0);
+		console.log(5);
+		var start = new Date();
+
+		while(true){
+			var now = new Date();
+			if(now-start>500){
+				break;
+			}
+		}
+		console.log(6);
+
+	</script>
+</body>
+</html>

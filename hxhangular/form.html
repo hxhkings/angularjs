@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+</head>
+<body ng-controller="MainCtrl as ctrl">
+
+	<form ng-submit = "ctrl.submit1()">
+		<input type="text" ng-model="ctrl.username">
+		<input type="password" ng-model="ctrl.password">
+		<input type="submit" value="Submit">
+	</form>
+
+	<form ng-submit = "ctrl.submit2()">
+		<input type="text" ng-model="ctrl.user.username">
+		<input type="password" ng-model="ctrl.user.password">
+		<input type="submit" value="Submit">
+	</form>
+	<!-- Checkboxes -->
+	<div>
+		<h2>What are your favorite sports?</h2>
+		<div ng-repeat="sport in ctrl.sports">
+			<label ng-bind="sport.label"></label>
+			<div>
+				With Binding:
+				<input type="checkbox" ng-model="sport.selected"
+						ng-true-value="'YES'" ng-false-value="'NO'">
+			</div>
+			<div>
+				Using ng-checked:
+				<input type="checkbox"
+						ng-checked="sport.selected === 'YES'">
+			</div>
+			<div>
+				Current state: {{sport.selected}}
+			</div><br><br>
+		</div>
+	</div>
+	<!-- Radio Buttons -->
+	<div ng-init="user = {gender: 'female'}">
+		<input type="radio" name="gender"
+				ng-model="user.gender" value="male">
+		<input type="radio" name="gender"
+				ng-model="user.gender" value="female">
+		<span ng-bind="user.gender"></span>
+	</div><br><br>
+	<div ng-init="otherGender = 'other'">
+		<input type="radio" name="gender2"
+				ng-model="user.gender2" value="male">Male
+		<input type="radio" name="gender2"
+			 	ng-model="user.gender2" value="female">Female
+		<input type="radio" name="gender2"
+				ng-model="user.gender2" ng-value="otherGender">{{otherGender}}
+	</div><br><br>
+	<!-- Combo Boxes/Drop-Downs -->
+	<div>
+		<select ng-model="ctrl.selectedCountryId"
+					ng-options="c.id as c.label for c in ctrl.countries">
+		</select>
+		Selected Country ID: {{ctrl.selectedCountryId}}
+	</div>
+	<div>
+		<select ng-model="ctrl.selectedCountry"
+					ng-options="c.label for c in ctrl.countries">
+		</select>
+		Selected Country : {{ctrl.selectedCountry}}
+	</div><br><br>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script>
+		angular.module('notesApp', []).
+			controller('MainCtrl', [function(){
+				var self = this;
+				self.submit1 = function(){
+					// Create user object to send to the server
+					var user = {username: self.username, password: self.password};
+					console.log('User clicked submit with ', user);
+				};
+				self.submit2 = function(){
+					console.log('Second form submit with ', self.user)
+				};
+
+				self.sports = [
+					{label: 'Basketball', selected: 'YES'},
+					{label: 'Cricket', selected: 'NO'},
+					{label: 'Soccer', selected: 'NO'},
+					{label: 'Swimming', selected: 'YES'}
+				];
+				self.countries = [
+					{label: 'USA', id: 1},
+					{label: 'India', id: 2},
+					{label: 'Other', id: 3}
+				];
+				self.selectedCountryId = 2;
+				self.selectedCountry = self.countries[1];
+			}]);
+	</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+	<style>
+		.username.ng-valid{
+			background-color:green;
+		}
+		.username.ng-dirty.ng-invalid-required{
+			background-color: red;
+		}
+		.username.ng-dirty.ng-invalid-minlength{
+			background-color: lightpink;
+		}
+		.username.ng-pristine{
+			background-color: #ddd;
+		}
+	</style>
+</head>
+<body ng-controller="MainCtrl as ctrl">
+
+	<form ng-submit="ctrl.submit()" name="myForm">
+		<input type="text" name="uname" class="username" ng-model="ctrl.user.username" required ng-minlength="4">
+		<span ng-show="myForm.uname.$error.required">
+			This is a required field
+		</span>
+		<span ng-show="myForm.uname.$error.minlength">
+			Minimum length required is 4
+		</span>
+		<span ng-show="myForm.uname.$invalid">
+			This field is invalid
+		</span>
+		<input type="password" name="pwd" ng-model="ctrl.user.password" required>
+		<span ng-show="myForm.pwd.$error.required">
+			This is a required field
+		</span>
+		<input type="submit" value="Submit" ng-disabled="myForm.$invalid">
+	</form>
+
+	<form novalidate name="myForm2">
+		<input type="text" class="username" 
+				name="uname2" ng-model="ctrl.user.username" 
+				required placeholder="Username" ng-minlength="4">
+		<input type="password" class="password" 
+				name="pwd2" ng-model="ctrl.user.password" 
+				required placeholder="Password">
+
+		<ng-form name="profile">
+			<input type="text" name="firstname"
+					ng-model="ctrl.user.profile.firstname"
+					placeholder="First Name" required>
+			<input type="text" name="middlename"
+					ng-model="ctrl.user.profile.middlename"
+					placeholder="Middle Name" required>
+			<input type="text" name="lastname"
+					ng-model="ctrl.user.profile.lastname"
+					placeholder="Last Name" required>
+			<input type="date" name="dob"
+					ng-model="ctrl.user.profile.dob"
+					placeholder="Date of Birth">
+		</ng-form>
+		
+		<span ng-show="myForm2.profile.$invalid">
+			Please fill out the profile information
+		</span>
+		<input type="submit" value="Submit" ng-disabled="myForm2.$invalid">
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script>
+		angular.module('notesApp', []).
+			controller('MainCtrl', [function(){
+				var self = this;
+				self.submit = function(){
+					console.log('User clicked submit with ', self.user);
+				};
+			}]);
+	</script>
+</body>
+</html>
